@@ -26,7 +26,9 @@ void motor_stop(motor_config_t *motor)
 }
 
 uint32_t motor_get_counter(motor_config_t *motor)
-{
+{ 
+	if (!motor->reversed)
+		return 65535 - __HAL_TIM_GET_COUNTER(motor->htim_encoder);
 	return __HAL_TIM_GET_COUNTER(motor->htim_encoder);
 }
 
